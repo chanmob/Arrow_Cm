@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private bool leftBtnPress;
     private bool rightBtnPress;
     private bool jumpBtnPress;
-    public bool sitBtnPress;
+    private bool sitBtnPress;
     private bool player_looks_right;
     public bool is_dead;
 
@@ -91,7 +91,6 @@ public class Player : MonoBehaviour
                     player_looks_right = false;
                     transform.localScale = my_sprite_originalscale;
                 }
-
                 rb2d.AddForce(Vector2.left * speed * Time.deltaTime);
             }
 
@@ -102,7 +101,6 @@ public class Player : MonoBehaviour
                     player_looks_right = true;
                     transform.localScale = new Vector3(-my_sprite_originalscale.x, my_sprite_originalscale.y, my_sprite_originalscale.z);
                 }
-
                 rb2d.AddForce(Vector2.right * speed * Time.deltaTime);
             }
 
