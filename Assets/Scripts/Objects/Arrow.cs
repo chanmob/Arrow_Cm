@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour
     private CapsuleCollider2D capsuleCollider2D;
     private Vector2 dir = Vector2.zero;
     public float speed = 5f;
-    public float waitingTime = 1f;
+    public float waitingTime = 1.5f;
     private bool go = false;
 
     private void Awake()
@@ -75,9 +75,7 @@ public class Arrow : MonoBehaviour
         else if(collision.CompareTag("Player"))
         {
             Debug.Log("Player에 닿음");
-            GameManager.instance.dieCount++;
-            GameManager.instance.die.text = "사망 횟수 : " + GameManager.instance.dieCount;
-
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Hit();
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    private int hp = 5;
+
     public float speed = 1000f;
     public float jump_power = 8.5f;
     private float jump_force_count;
@@ -14,15 +16,18 @@ public class Player : MonoBehaviour
     private bool jumpBtnPress;
     private bool sitBtnPress;
     private bool player_looks_right;
+    private bool invincibility;
     public bool is_dead;
 
     private Animator anim;
     private Rigidbody2D rb2d;
     private Vector3 my_sprite_originalscale;
     private BoxCollider2D box2d;
+    private SpriteRenderer[] sprites;
 
     void Start()
     {
+        sprites = GetComponentsInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         box2d = GetComponent<BoxCollider2D>();
@@ -139,6 +144,9 @@ public class Player : MonoBehaviour
     public void LeftButtonRelease()
     {
         leftBtnPress = false;
+
+        if (grounded)
+            rb2d.velocity = new Vector2(0, 0);
     }
 
     public void RightButtonPress()
@@ -149,6 +157,9 @@ public class Player : MonoBehaviour
     public void RightButtonRelease()
     {
         rightBtnPress = false;
+
+        if (grounded)
+            rb2d.velocity = new Vector2(0, 0);
     }
 
     public void JumpButtonPress()
@@ -191,5 +202,50 @@ public class Player : MonoBehaviour
         {
             grounded = true;
         }
+    }
+
+    public void Hit()
+    {
+        if (invincibility == true)
+            return;
+
+        hp--;
+        GameManager.instance.die.text = "체력 : " + hp;
+        invincibility = true;
+        StartCoroutine(HitDisplay());
+    }
+
+    public IEnumerator HitDisplay()
+    {
+        float increment = 0.02f / 0.25f;
+
+        float progress = 0f;
+        while (progress < 1f)
+        {
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                sprites[i].color = Color.Lerp(Color.white, Color.red, progress);
+                progress += increment;
+                yield return new WaitForSeconds(0.02f);
+            }
+        }
+
+        progress = 0;
+        while (progress < 1f)
+        {
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                sprites[i].color = Color.Lerp(Color.red, Color.white, progress);
+                progress += increment;
+                yield return new WaitForSeconds(0.02f);
+            }
+        }
+
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            sprites[i].color = Color.white;
+        }
+
+        invincibility = false;
     }
 }

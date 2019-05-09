@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6647369040286062003}
   - component: {fileID: 8808440228863007290}
   m_Layer: 0
-  m_Name: Pattern28
+  m_Name: Pattern26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,11 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   patternLength: 5
-  spawnIndex: 0500000009000000060000000700000008000000
+  spawnIndex: 130000000f000000110000001000000012000000
   patternWaitingTime:
   - 0
-  - 0
-  - 0.7
-  - 0
-  - 0
-  arrowType: 0000000000000000000000000000000000000000
+  - 0.4
+  - 0.4
+  - 0.4
+  - 0.4
+  arrowType: 0100000001000000010000000100000001000000

@@ -20,8 +20,7 @@ public class GameManager : Singleton<GameManager>
     private List<GameObject> slowArrowList = new List<GameObject>();
     private int[] tempIdx;
 
-    public int dieCount;
-    public float timeCount;
+    private float timeCount;
 
     protected override void Awake()
     {
@@ -48,9 +47,28 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(StartSpawnArrow());
     }
 
+    int testIdx;
+
     private void FixedUpdate()
     {
         timeCount += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            testIdx--;
+            if(testIdx < 0)
+            {
+                testIdx = 0;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            testIdx++;
+            if(testIdx >= patternList.Count)
+            {
+                testIdx = patternList.Count - 1;
+            }
+        }
 
         time.text = "버틴 시간 : " + timeCount.ToString("0.00");
     }
@@ -127,16 +145,16 @@ public class GameManager : Singleton<GameManager>
     {
         while (true)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2.5f);
 
             int idx = Random.Range(0, patternList.Count);
 
             text.text = "이번 패턴은 " + (idx + 1) + "번째 패턴"; 
-            
-            yield return StartCoroutine(StartPattern(patternList[idx]));
+            //text.text = "테스트 " + testIdx + "번"; 
+
+            yield return StartCoroutine(StartPattern(patternList[78]));
         }
     }
-
 
     private int[] RandomIdx(int _length)
     {
@@ -205,6 +223,7 @@ public class GameManager : Singleton<GameManager>
                 dir = spawnArrow[tempIdx[j]];
             }
 
+            dir.CoroutineControl();
             arrow.GetComponent<Arrow>().DirectionSetting(dir.wasd);
         }
     }

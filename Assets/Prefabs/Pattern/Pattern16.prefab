@@ -48,11 +48,7 @@ MonoBehaviour:
   spawnIndex: 00000000070000000a00000011000000
   patternWaitingTime:
   - 0
-  - 0
-  - 0
-  - 0
-  arrowType:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 0.2
+  - 0.2
+  - 0.2
+  arrowType: 00000000000000000000000000000000
