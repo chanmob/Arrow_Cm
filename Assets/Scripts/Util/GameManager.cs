@@ -1,16 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    private SpawnArrow[] spawnArrow;
+    public SpawnArrow[] spawnArrow;
+
     public GameObject walls;
-    public GameObject arrowPrefab;
-    public GameObject obejctPoolParent;
+    public GameObject[] arrowPrefab;
+    public GameObject objectPoolParent;
+
+    public Text text;
+    public Text time;
+    public Text die;
 
     public List<Pattern> patternList = new List<Pattern>();
-    private List<GameObject> arrowList = new List<GameObject>();
+    private List<GameObject> fastArrowList = new List<GameObject>();
+    private List<GameObject> slowArrowList = new List<GameObject>();
+    private int[] tempIdx;
+
+    public int dieCount;
+    public float timeCount;
 
     protected override void Awake()
     {
@@ -37,42 +48,79 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(StartSpawnArrow());
     }
 
+    private void FixedUpdate()
+    {
+        timeCount += Time.deltaTime;
+
+        time.text = "버틴 시간 : " + timeCount.ToString("0.00");
+    }
+
     private void InitializeObjectPools()
     {
         GameObject newArrow = null;
 
         for (int i = 0; i < 20; i++)
         {
-            newArrow = Instantiate(arrowPrefab);
-            newArrow.transform.SetParent(obejctPoolParent.transform);
+            newArrow = Instantiate(arrowPrefab[0]);
+            newArrow.name = "FastArrow";
+            newArrow.transform.SetParent(objectPoolParent.transform);
             newArrow.SetActive(false);
-            arrowList.Add(newArrow);
+            fastArrowList.Add(newArrow);
+        }
+
+        for (int i = 0; i < 20; i++)
+        {
+            newArrow = Instantiate(arrowPrefab[1]);
+            newArrow.name = "SlowArrow";
+            newArrow.transform.SetParent(objectPoolParent.transform);
+            newArrow.SetActive(false);
+            slowArrowList.Add(newArrow);
         }
     }
 
-    public GameObject GetGameobejct()
+    public GameObject GetGameobejct(int _idx)
     {
         GameObject result = null;
 
-        if (arrowList.Count > 0)
+        switch (_idx)
         {
-            result = arrowList[0];
-            arrowList.Remove(arrowList[0]);
-            result.gameObject.SetActive(true);
-        }
-        else
-        {
-            result = Instantiate(arrowPrefab);
-            result.transform.SetParent(obejctPoolParent.transform);
+            case 0:
+                if(fastArrowList.Count > 0)
+                {
+                    result = fastArrowList[0];
+                    fastArrowList.Remove(fastArrowList[0]);
+                }
+                else
+                {
+                    result = Instantiate(arrowPrefab[_idx]);
+                    result.transform.SetParent(objectPoolParent.transform);
+                }
+                break;
+            case 1:
+                if (slowArrowList.Count > 0)
+                {
+                    result = slowArrowList[0];
+                    slowArrowList.Remove(slowArrowList[0]);
+                }
+                else
+                {
+                    result = Instantiate(arrowPrefab[_idx]);
+                    result.transform.SetParent(objectPoolParent.transform);
+                }
+                break;
         }
 
+        result.gameObject.SetActive(true);
         return result;
     }
 
     public void DisableGameobject(GameObject _object)
     {
         _object.SetActive(false);
-        arrowList.Add(_object);
+        if (_object.name == "FastArrow")
+            fastArrowList.Add(_object);
+        else if (_object.name == "SlowArrow")
+            slowArrowList.Add(_object);
     }
 
     private IEnumerator StartSpawnArrow()
@@ -81,19 +129,69 @@ public class GameManager : Singleton<GameManager>
         {
             yield return new WaitForSeconds(2f);
 
-            int idx = Random.Range(0, patternList.Count - 1);
+            int idx = Random.Range(0, patternList.Count);
 
+            text.text = "이번 패턴은 " + (idx + 1) + "번째 패턴"; 
+            
             yield return StartCoroutine(StartPattern(patternList[idx]));
         }
     }
 
+
+    private int[] RandomIdx(int _length)
+    {
+        int[] result = new int[_length];
+        bool same;
+
+        for(int i = 0; i < _length; i++)
+        {
+            while (true)
+            {
+                result[i] = Random.Range(0, spawnArrow.Length);
+                same = false;
+
+                for(int j = 0; j < i; j++)
+                {
+                    if(result[j] == result[i])
+                    {
+                        same = true;
+                        break;
+                    }
+                }
+
+                if (!same) break;
+            }
+        }
+
+        return result;
+    }
+
     private IEnumerator StartPattern(Pattern _pattern)
     {
+        if(_pattern.type == Pattern.TYPE.RANDOM)
+        {
+            tempIdx = null;
+            tempIdx = RandomIdx(_pattern.patternLength);
+        }
+
         for (int j = 0; j < _pattern.patternLength; j++)
         {
-            yield return new WaitForSeconds(_pattern.patternWaitingTime[j]);
+            if (_pattern.patternWaitingTime[j] == 0)
+                yield return null;
+            else
+                yield return new WaitForSeconds(_pattern.patternWaitingTime[j]);
 
-            var arrow = GetGameobejct();
+            GameObject arrow = null;
+
+            if(_pattern.arrowType[j] == 0)
+            {
+                arrow = GetGameobejct(0);
+            }
+            else if (_pattern.arrowType[j] == 1)
+            {
+                arrow = GetGameobejct(1);
+            }
+
             SpawnArrow dir = null;
 
             if(_pattern.type == Pattern.TYPE.CONST)
@@ -102,13 +200,12 @@ public class GameManager : Singleton<GameManager>
                 dir = spawnArrow[_pattern.spawnIndex[j]];
             }
             else if(_pattern.type == Pattern.TYPE.RANDOM)
-            {
-                int randomIdx = Random.Range(0, spawnArrow.Length);
-                arrow.transform.position = spawnArrow[randomIdx].transform.position;
-                dir = spawnArrow[randomIdx];
+            {             
+                arrow.transform.position = spawnArrow[tempIdx[j]].transform.position;
+                dir = spawnArrow[tempIdx[j]];
             }
 
-            arrow.GetComponent<Arrow>().DirectionSetting(_pattern.waitingTime[j], dir.wasd);
+            arrow.GetComponent<Arrow>().DirectionSetting(dir.wasd);
         }
     }
 }
