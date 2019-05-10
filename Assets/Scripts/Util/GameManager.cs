@@ -5,20 +5,31 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    public enum TYPE
+    {
+        PRACTICE,
+        INFINITY,
+        BINGE,
+        NONE
+    }
+
+    public TYPE type = TYPE.NONE;
+
     public SpawnArrow[] spawnArrow;
 
     public GameObject walls;
     public GameObject[] arrowPrefab;
     public GameObject objectPoolParent;
 
-    public Text text;
     public Text time;
-    public Text die;
+    public Text health;
 
     public List<Pattern> patternList = new List<Pattern>();
     private List<GameObject> fastArrowList = new List<GameObject>();
     private List<GameObject> slowArrowList = new List<GameObject>();
+
     private int[] tempIdx;
+    private int idx = 0;
 
     private float timeCount;
 
@@ -47,30 +58,38 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(StartSpawnArrow());
     }
 
-    int testIdx;
-
-    private void FixedUpdate()
+    private void Update()
     {
-        timeCount += Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.O))
+        if(type == TYPE.INFINITY)
         {
-            testIdx--;
-            if(testIdx < 0)
+            timeCount += Time.deltaTime;
+
+            time.text = "버틴 시간 : " + timeCount.ToString("0.00") + "초";
+        }
+    }
+
+    public void PracticeButton(bool _plus)
+    {
+        if (_plus)
+        {
+            idx++;
+
+            if(idx >= patternList.Count)
             {
-                testIdx = 0;
+                idx = 0;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.P))
+        else
         {
-            testIdx++;
-            if(testIdx >= patternList.Count)
+            idx--;
+
+            if(idx < 0)
             {
-                testIdx = patternList.Count - 1;
+                idx = patternList.Count - 1;
             }
         }
 
-        time.text = "버틴 시간 : " + timeCount.ToString("0.00");
+        time.text = "다음 패턴 : " + (idx + 1)+ "번";
     }
 
     private void InitializeObjectPools()
@@ -147,12 +166,19 @@ public class GameManager : Singleton<GameManager>
         {
             yield return new WaitForSeconds(2.5f);
 
-            int idx = Random.Range(0, patternList.Count);
+            switch (type)
+            {
+                case TYPE.PRACTICE:
+                    break;
+                case TYPE.INFINITY:
+                    idx = Random.Range(0, patternList.Count);
+                    break;
+                case TYPE.BINGE:
+                    time.text = "진행 상황 : " + (idx + 1) + " / 99";
+                    break;
+            }
 
-            //text.text = "이번 패턴은 " + (idx + 1) + "번째 패턴"; 
-            text.text = "테스트 " + testIdx + "번"; 
-
-            yield return StartCoroutine(StartPattern(patternList[testIdx]));
+            yield return StartCoroutine(StartPattern(patternList[idx]));
         }
     }
 
@@ -186,6 +212,11 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator StartPattern(Pattern _pattern)
     {
+        if(type == TYPE.BINGE)
+        {
+            idx++;
+        }
+
         if(_pattern.type == Pattern.TYPE.RANDOM)
         {
             tempIdx = null;

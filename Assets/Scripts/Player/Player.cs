@@ -210,7 +210,7 @@ public class Player : MonoBehaviour
             return;
 
         hp--;
-        GameManager.instance.die.text = "체력 : " + hp;
+        GameManager.instance.health.text = "남은 목숨 : " + hp;
         invincibility = true;
         StartCoroutine(HitDisplay());
     }
