@@ -149,10 +149,10 @@ public class GameManager : Singleton<GameManager>
 
             int idx = Random.Range(0, patternList.Count);
 
-            text.text = "이번 패턴은 " + (idx + 1) + "번째 패턴"; 
-            //text.text = "테스트 " + testIdx + "번"; 
+            //text.text = "이번 패턴은 " + (idx + 1) + "번째 패턴"; 
+            text.text = "테스트 " + testIdx + "번"; 
 
-            yield return StartCoroutine(StartPattern(patternList[78]));
+            yield return StartCoroutine(StartPattern(patternList[testIdx]));
         }
     }
 

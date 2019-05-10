@@ -44,15 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  patternLength: 8
-  spawnIndex: 130000000e0000000500000002000000130000000e0000000500000002000000
+  patternLength: 4
+  spawnIndex: 12000000130000000500000006000000
   patternWaitingTime:
   - 0
-  - 0.5
-  - 0.5
-  - 0.5
-  - 0.5
   - 0
-  - 0
-  - 0
-  arrowType: 0100000001000000010000000100000000000000000000000000000000000000
+  - 0.7
+  - 0.7
+  arrowType: 00000000000000000000000000000000

@@ -1230,6 +1230,14 @@ MonoBehaviour:
   - {fileID: 8808440228863007290, guid: bcd03a3c522ca054a8b841919a61db4d, type: 3}
   - {fileID: 8808440228863007290, guid: bc49eedea079f7549894680f9821f6b7, type: 3}
   - {fileID: 8808440228863007290, guid: cd5c4868925e94e4b8b09123487298a7, type: 3}
+  - {fileID: 8808440228863007290, guid: b2f638ad2840ad64194c6c64d7c224ad, type: 3}
+  - {fileID: 8808440228863007290, guid: 72cdb2cdcd9034348b9c45e530a62cd7, type: 3}
+  - {fileID: 8808440228863007290, guid: 4b2908dc5995b28408d96b60c0c55d91, type: 3}
+  - {fileID: 8808440228863007290, guid: 07acd856547160b47b7cc1d3301e7a79, type: 3}
+  - {fileID: 8808440228863007290, guid: 11cde24ceaf2f394ca30d9d2ef113088, type: 3}
+  - {fileID: 8808440228863007290, guid: 2f8ff728e73164b45afb99393ec96c67, type: 3}
+  - {fileID: 8808440228863007290, guid: 7438929fe68272a48a22f6745b6b2777, type: 3}
+  - {fileID: 8808440228863007290, guid: 7bdbfdcf3bd6a7448a1c887e339d0abb, type: 3}
 --- !u!4 &718746333
 Transform:
   m_ObjectHideFlags: 0
@@ -3330,6 +3338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3808568523499406384, guid: db52d81d176709f4589fa0cad03d9d9c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db52d81d176709f4589fa0cad03d9d9c, type: 3}

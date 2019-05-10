@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6647369040286062003}
   - component: {fileID: 8808440228863007290}
   m_Layer: 0
-  m_Name: Pattern30
+  m_Name: Pattern75
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,14 +48,14 @@ MonoBehaviour:
   spawnIndex: 0c0000000f00000004000000090000000b0000001000000003000000080000000a000000110000000000000007000000
   patternWaitingTime:
   - 0
-  - 0.4
-  - 0.4
-  - 0.4
-  - 0.4
-  - 0.4
-  - 0.4
-  - 0.4
-  - 0.4
+  - 0.7
+  - 0.7
+  - 0.7
+  - 0.7
+  - 0.7
+  - 0.7
+  - 0.7
+  - 0.7
   - 0
   - 0
   - 0

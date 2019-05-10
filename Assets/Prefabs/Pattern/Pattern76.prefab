@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6647369040286062003}
   - component: {fileID: 8808440228863007290}
   m_Layer: 0
-  m_Name: Pattern31
+  m_Name: Pattern76
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,11 +51,11 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  - 1
+  - 1.5
   - 0
   - 0
   - 0
-  - 1
+  - 1.5
   - 0
   - 0
   - 0
