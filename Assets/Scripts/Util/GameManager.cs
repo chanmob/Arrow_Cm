@@ -80,15 +80,15 @@ public class GameManager : Singleton<GameManager>
             {
                 if (timeCount >= PlayerPrefs.GetInt("BINGESCORE"))
                 {
-                    PlayerPrefs.SetInt("BINGESCORE", idx + 1);
+                    PlayerPrefs.SetInt("BINGESCORE", idx);
                 }
             }
             else
             {
-                PlayerPrefs.SetInt("BINGESCORE", idx + 1);
+                PlayerPrefs.SetInt("BINGESCORE", idx);
             }
 
-            resultPanel.transform.Find("Result").GetComponent<Text>().text = "진행 상황 : " + (idx + 1) + " / 100";
+            resultPanel.transform.Find("Result").GetComponent<Text>().text = "진행 상황 : " + idx + " / 100";
             resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetInt("BINGESCORE") + " / 100";
         }
         else if (type == TYPE.INFINITY)

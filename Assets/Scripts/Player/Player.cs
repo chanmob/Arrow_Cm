@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private bool sitBtnPress;
     private bool player_looks_right;
     private bool invincibility;
-    public bool is_dead;
+    public bool isDead;
 
     public GameObject mobileController;
 
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (is_dead == true)
+        if (isDead == true)
             return;
 
         anim.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (is_dead == true)
+        if (isDead == true)
             return;
 
         if (!sitBtnPress)
@@ -208,7 +208,7 @@ public class Player : MonoBehaviour
 
     public void Hit()
     {
-        if (invincibility == true)
+        if (invincibility == true || isDead)
             return;
 
         hp--;
@@ -216,6 +216,7 @@ public class Player : MonoBehaviour
 
         if (hp <= 0 && GameManager.instance.type != GameManager.TYPE.PRACTICE)
         {
+            isDead = true;
             mobileController.SetActive(false);
             anim.SetTrigger("Die");
             GameManager.instance.GetResult();

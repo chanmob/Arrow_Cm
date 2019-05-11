@@ -1429,6 +1429,7 @@ MonoBehaviour:
   - {fileID: 7801706772092546049, guid: b8e6b1c2310947d4bb715bd241a9ad16, type: 3}
   - {fileID: 7801706772092546049, guid: 91d42d940394af24c8b362f050652ae7, type: 3}
   objectPoolParent: {fileID: 2016349042}
+  resultPanel: {fileID: 0}
   time: {fileID: 1574243732}
   health: {fileID: 634495384}
   patternList:
@@ -4579,7 +4580,7 @@ PrefabInstance:
     - target: {fileID: 7752514983689134192, guid: 168fc7c628b62c641b1a1c38b09a105e,
         type: 3}
       propertyPath: m_Name
-      value: MobileControls
+      value: MobileController
       objectReference: {fileID: 0}
     - target: {fileID: 7752514983689134191, guid: 168fc7c628b62c641b1a1c38b09a105e,
         type: 3}
