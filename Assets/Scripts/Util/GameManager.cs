@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject walls;
     public GameObject[] arrowPrefab;
     public GameObject objectPoolParent;
+    public GameObject resultPanel;
 
     public Text time;
     public Text health;
@@ -65,6 +66,47 @@ public class GameManager : Singleton<GameManager>
             timeCount += Time.deltaTime;
 
             time.text = "버틴 시간 : " + timeCount.ToString("0.00") + "초";
+        }
+    }
+
+    public void GetResult()
+    {
+        StopAllCoroutines();
+        resultPanel.SetActive(true);
+
+        if(type == TYPE.BINGE)
+        {
+            if (PlayerPrefs.HasKey("BINGESCORE"))
+            {
+                if (timeCount >= PlayerPrefs.GetInt("BINGESCORE"))
+                {
+                    PlayerPrefs.SetInt("BINGESCORE", idx + 1);
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetInt("BINGESCORE", idx + 1);
+            }
+
+            resultPanel.transform.Find("Result").GetComponent<Text>().text = "진행 상황 : " + (idx + 1) + " / 100";
+            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetInt("BINGESCORE") + " / 100";
+        }
+        else if (type == TYPE.INFINITY)
+        {
+            if (PlayerPrefs.HasKey("INFINITYSCORE"))
+            {
+                if(timeCount >= PlayerPrefs.GetFloat("INFINITYSCORE"))
+                {
+                    PlayerPrefs.SetFloat("INFINITYSCORE", timeCount);
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetFloat("INFINITYSCORE", timeCount);
+            }
+
+            resultPanel.transform.Find("Result").GetComponent<Text>().text = "버틴 시간 : " + timeCount.ToString("0.00") + "초";
+            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetFloat("INFINITYSCORE") + "초";
         }
     }
 
@@ -174,7 +216,7 @@ public class GameManager : Singleton<GameManager>
                     idx = Random.Range(0, patternList.Count);
                     break;
                 case TYPE.BINGE:
-                    time.text = "진행 상황 : " + (idx + 1) + " / 99";
+                    time.text = "진행 상황 : " + (idx + 1) + " / 100";
                     break;
             }
 

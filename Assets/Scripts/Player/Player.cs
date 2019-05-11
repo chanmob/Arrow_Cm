@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private bool invincibility;
     public bool is_dead;
 
+    public GameObject mobileController;
+
     private Animator anim;
     private Rigidbody2D rb2d;
     private Vector3 my_sprite_originalscale;
@@ -211,6 +213,15 @@ public class Player : MonoBehaviour
 
         hp--;
         GameManager.instance.health.text = "남은 목숨 : " + hp;
+
+        if (hp <= 0 && GameManager.instance.type != GameManager.TYPE.PRACTICE)
+        {
+            mobileController.SetActive(false);
+            anim.SetTrigger("Die");
+            GameManager.instance.GetResult();
+            return;
+        }
+
         invincibility = true;
         StartCoroutine(HitDisplay());
     }

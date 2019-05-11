@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour
     private CapsuleCollider2D capsuleCollider2D;
     private Vector2 dir = Vector2.zero;
     public float speed = 5f;
-    public float waitingTime = 1.5f;
+    public float waitingTime = 1f;
     private bool go = false;
 
     private void Awake()
