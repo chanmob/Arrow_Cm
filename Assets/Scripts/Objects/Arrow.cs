@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CodeStage.AntiCheat.ObscuredTypes;
 
 public class Arrow : MonoBehaviour
 {
     private CapsuleCollider2D capsuleCollider2D;
     private Vector2 dir = Vector2.zero;
-    public float speed = 5f;
-    public float waitingTime = 1f;
+    public ObscuredFloat speed = 5f;
+    public ObscuredFloat waitingTime = 1f;
     private bool go = false;
+    public bool soundPlay = false;
 
     private void Awake()
     {
@@ -19,12 +21,19 @@ public class Arrow : MonoBehaviour
     {
         go = false;
         capsuleCollider2D.enabled = false;
+        soundPlay = false;
     }
 
     private void Waiting()
     {
         go = true;
         capsuleCollider2D.enabled = true;
+
+        if (soundPlay)
+        {
+            var gm = GameManager.instance;
+            gm.arrowAudio.PlayOneShot(gm.audioclip);
+        }
     }
 
     public void DirectionSetting(SpawnArrow.WASD _dir)
@@ -76,6 +85,7 @@ public class Arrow : MonoBehaviour
         {
             Debug.Log("Player에 닿음");
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Hit();
+            GameManager.instance.DisableGameobject(this.gameObject);
         }
     }
 }

@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   waitingTime: 0.5
+  soundPlay: 0
 --- !u!70 &-3745691335379491541
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.3, y: 0.5}
+  m_Size: {x: 2, y: 0.5}
   m_Direction: 1
 --- !u!50 &5600078602543426460
 Rigidbody2D:

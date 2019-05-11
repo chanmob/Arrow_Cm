@@ -17,7 +17,6 @@ public class Pattern : MonoBehaviour
     public float[] patternWaitingTime;  //패턴간 화살 생성 간격
     public int[] arrowType;         //화살 종류
 
-
     /*
      * spawnIdx 설명
     * 아래 왼쪽부터 4/3/0/1/2

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CodeStage.AntiCheat.ObscuredTypes;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -29,10 +30,13 @@ public class GameManager : Singleton<GameManager>
     private List<GameObject> fastArrowList = new List<GameObject>();
     private List<GameObject> slowArrowList = new List<GameObject>();
 
-    private int[] tempIdx;
-    private int idx = 0;
+    public AudioSource arrowAudio;
+    public AudioClip audioclip;
 
-    private float timeCount;
+    private int[] tempIdx;
+    private ObscuredInt idx = 0;
+
+    private ObscuredFloat timeCount;
 
     protected override void Awake()
     {
@@ -76,28 +80,28 @@ public class GameManager : Singleton<GameManager>
 
         if(type == TYPE.BINGE)
         {
-            if (PlayerPrefs.HasKey("BINGESCORE"))
+            if (ObscuredPrefs.HasKey("BINGESCORE"))
             {
-                if (timeCount >= PlayerPrefs.GetInt("BINGESCORE"))
+                if (timeCount >= ObscuredPrefs.GetInt("BINGESCORE"))
                 {
-                    PlayerPrefs.SetInt("BINGESCORE", idx);
+                    ObscuredPrefs.SetInt("BINGESCORE", idx);
                 }
             }
             else
             {
-                PlayerPrefs.SetInt("BINGESCORE", idx);
+                ObscuredPrefs.SetInt("BINGESCORE", idx);
             }
 
             resultPanel.transform.Find("Result").GetComponent<Text>().text = "진행 상황 : " + idx + " / 100";
-            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetInt("BINGESCORE") + " / 100";
+            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + ObscuredPrefs.GetInt("BINGESCORE") + " / 100";
         }
         else if (type == TYPE.INFINITY)
         {
-            if (PlayerPrefs.HasKey("INFINITYSCORE"))
+            if (ObscuredPrefs.HasKey("INFINITYSCORE"))
             {
-                if(timeCount >= PlayerPrefs.GetFloat("INFINITYSCORE"))
+                if(timeCount >= ObscuredPrefs.GetFloat("INFINITYSCORE"))
                 {
-                    PlayerPrefs.SetFloat("INFINITYSCORE", timeCount);
+                    ObscuredPrefs.SetFloat("INFINITYSCORE", timeCount);
                 }
             }
             else
@@ -189,7 +193,6 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
 
-        result.gameObject.SetActive(true);
         return result;
     }
 
@@ -252,8 +255,16 @@ public class GameManager : Singleton<GameManager>
         return result;
     }
 
+    public void AudioPlay()
+    {
+        arrowAudio.PlayOneShot(audioclip);
+    }
+    private bool first = false;
+
     private IEnumerator StartPattern(Pattern _pattern)
     {
+        first = false;
+
         if(type == TYPE.BINGE)
         {
             idx++;
@@ -267,37 +278,51 @@ public class GameManager : Singleton<GameManager>
 
         for (int j = 0; j < _pattern.patternLength; j++)
         {
-            if (_pattern.patternWaitingTime[j] == 0)
-                yield return null;
-            else
-                yield return new WaitForSeconds(_pattern.patternWaitingTime[j]);
+            GameObject arrowObject = null;
+            Arrow arrow = null;
 
-            GameObject arrow = null;
-
-            if(_pattern.arrowType[j] == 0)
+            if (_pattern.arrowType[j] == 0)
             {
-                arrow = GetGameobejct(0);
+                arrowObject = GetGameobejct(0);
             }
             else if (_pattern.arrowType[j] == 1)
             {
-                arrow = GetGameobejct(1);
+                arrowObject = GetGameobejct(1);
+            }
+
+            arrow = arrowObject.GetComponent<Arrow>();
+
+            if (_pattern.patternWaitingTime[j] == 0)
+            {
+                yield return null;
+                if (!first)
+                {
+                    first = true;
+                    arrow.soundPlay = true;
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(_pattern.patternWaitingTime[j]);
+                arrow.soundPlay = true;
             }
 
             SpawnArrow dir = null;
 
             if(_pattern.type == Pattern.TYPE.CONST)
             {
-                arrow.transform.position = spawnArrow[_pattern.spawnIndex[j]].transform.position;
+                arrowObject.transform.position = spawnArrow[_pattern.spawnIndex[j]].transform.position;
                 dir = spawnArrow[_pattern.spawnIndex[j]];
             }
             else if(_pattern.type == Pattern.TYPE.RANDOM)
             {             
-                arrow.transform.position = spawnArrow[tempIdx[j]].transform.position;
+                arrowObject.transform.position = spawnArrow[tempIdx[j]].transform.position;
                 dir = spawnArrow[tempIdx[j]];
             }
 
             dir.CoroutineControl();
-            arrow.GetComponent<Arrow>().DirectionSetting(dir.wasd);
+            arrow.DirectionSetting(dir.wasd);
+            arrowObject.SetActive(true);
         }
     }
 }
