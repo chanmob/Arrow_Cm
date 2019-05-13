@@ -9,20 +9,32 @@ public class MainSceneUI : MonoBehaviour
 {
     private bool soundOff;
     private string leaderboardId = "74943547710";
-    public UnityEngine.UI.Text txt;
 
     private void Awake()
     {
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
-
-        txt.text = "Awake 완료";
     }
 
     private void Start()
     {
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (success)
+                {
+                    Debug.Log("로그인 성공");
+                }
+                else
+                {
+                    Debug.LogError("로그인 실패");
+                }
+            });
+        }
+
         if (PlayerPrefs.HasKey("SOUND"))
         {
             var sound = PlayerPrefs.GetString("SOUND");
@@ -64,76 +76,44 @@ public class MainSceneUI : MonoBehaviour
 
     public void Ranking()
     {
-        Social.localUser.Authenticate(AuthenticateHandler);
-        txt.text += "\n랭킹 누름";
+        float score = 0;
+        float uploadScore = 0;
+
+        if (ObscuredPrefs.HasKey("INFINITYSCORE"))
+        {
+            score = ObscuredPrefs.GetFloat("INFINITYSCORE");            
+        }
+
+        if (ObscuredPrefs.HasKey("UPLOADSCORE"))
+        {
+            uploadScore = ObscuredPrefs.GetFloat("UPLOADSCORE");
+        }
+
+        if(uploadScore != score)
+        {
+            ObscuredPrefs.SetFloat("UPLOADSCORE", score);
+            uploadScore = score;
+
+            Social.ReportScore((long)uploadScore, GPGSIds.leaderboard, (bool success) =>
+            {
+                if (success)
+                    PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
+            });
+        }
+        else
+        {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
+        }
+
     }
 
     public void Achievements()
     {
-        txt.text += "\n업적 누름";
-        Social.localUser.Authenticate((bool success) =>
-        {
-            if (success)
-            {
-                Social.ShowAchievementsUI();
-            }
-            else
-            {
-                txt.text += "\n실패";
-            }
-        });
+        Social.ShowAchievementsUI();
     }
 
     public void Quit()
     {
-        if (Social.localUser.authenticated)
-        {
-            txt.text = "name : " + Social.localUser.userName; 
-        }
-        else
-        {
-            Social.localUser.Authenticate((bool suc) =>{
-            if (suc)
-                {
-                    txt.text = "로그인 성공";
-                }
-                else
-                {
-                    txt.text = "로그인 실패";
-                }
-            });
-        }
-        //Application.Quit();
-    }
-
-    private void AuthenticateHandler(bool _sucess)
-    {
-        //if (_sucess)
-        //{
-        //    float timeScore = 0f;
-
-        //    if (ObscuredPrefs.HasKey("INFINITYSCORE"))
-        //    {
-        //        timeScore = ObscuredPrefs.GetFloat("INFINITYSCORE");
-        //    }
-
-        //    Social.ReportScore((long)timeScore, GPGSIds.leaderboard_test_leaderboard, (bool sucess) => {
-        //        if (sucess)
-        //        {
-        //            PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard_test_leaderboard);
-        //            txt.text += "\n랭킹 받기";
-        //        }
-        //        else
-        //        {
-        //            Debug.LogError("HighScore Failed");
-        //            txt.text += "\n랭킹 받기 실패";
-        //        }
-        //    });
-        //}
-        //else
-        //{
-        //    Debug.Log("Login Failed");
-        //    txt.text += "\n로그인 실패";
-        //}
+        Application.Quit();
     }
 }

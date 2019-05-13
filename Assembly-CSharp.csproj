@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1351C00B-1F2C-F3BD-F598-EEB443E82402}</ProjectGuid>
+    <ProjectGuid>{93A6ECC2-DBD1-B0A2-9140-E2654A1B7D53}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -61,6 +61,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Auto Letterbox\ForceCameraRatio.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdapterStatus.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdErrorEventArgs.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdFailedToLoadEventArgs.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdLoader.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdPosition.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdRequest.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\AdSize.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\BannerView.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\CustomNativeEventArgs.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\CustomNativeTemplateAd.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\Gender.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\InterstitialAd.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\Mediation\MediationExtras.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\MobileAds.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\Reward.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\RewardBasedVideoAd.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Api\RewardedAd.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\DummyClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IAdLoaderClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IBannerClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\ICustomNativeTemplateClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IInterstitialClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IMobileAdsClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IRewardBasedVideoAdClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\IRewardedAdClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\MobileAdsEventExecutor.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\RewardedAdDummyClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Common\Utils.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\AdLoaderClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\BannerClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\CustomNativeTemplateClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\InterstitialClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\MobileAdsClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\RewardBasedVideoAdClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\RewardedAdClient.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\Android\Utils.cs" />
+    <Compile Include="Assets\GoogleMobileAds\Platforms\GoogleMobileAdsClientFactory.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\Achievement.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonStatusCodes.cs" />
     <Compile Include="Assets\GooglePlayGames\BasicApi\CommonTypes.cs" />
@@ -246,6 +283,8 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\RightButton.cs" />
     <Compile Include="Assets\Scripts\Player\TouchCamera.cs" />
+    <Compile Include="Assets\Scripts\Util\AdmobBanner.cs" />
+    <Compile Include="Assets\Scripts\Util\AdmobScreenAd.cs" />
     <Compile Include="Assets\Scripts\Util\GameManager.cs" />
     <Compile Include="Assets\Scripts\Util\MainSceneUI.cs" />
     <Compile Include="Assets\Scripts\Util\Pattern.cs" />
@@ -253,19 +292,19 @@
     <Compile Include="Assets\Scripts\Util\Singleton.cs" />
     <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/UnityHub/2018.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -466,13 +505,13 @@
       <HintPath>D:/UnityHub/2018.3.14f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/UnityHub/2018.3.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -822,7 +861,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{19AECA36-947C-56AB-BAC8-2F1BB1B75322}</Project>
+      <Project>{5F8775CF-4D9E-2C44-3C63-9EAF569153B4}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>

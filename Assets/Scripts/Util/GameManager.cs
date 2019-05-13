@@ -219,6 +219,12 @@ public class GameManager : Singleton<GameManager>
                     idx = Random.Range(0, patternList.Count);
                     break;
                 case TYPE.BINGE:
+                    if(idx == 99)
+                    {
+                        GetResult();
+                        yield break;
+                    }
+
                     time.text = "진행 상황 : " + (idx + 1) + " / 100";
                     break;
             }

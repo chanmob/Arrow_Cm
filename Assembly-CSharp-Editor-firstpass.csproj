@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{EED29881-A16C-0054-A735-1C4BD01D7B2B}</ProjectGuid>
+    <ProjectGuid>{C33FE387-5A62-0124-1AAD-8C1F6701B8C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
@@ -92,19 +92,19 @@
     <Compile Include="Assets\Plugins\CodeStage\AntiCheatToolkit\Editor\Scripts\Windows\ACTkPrefsEditor.cs" />
     <Compile Include="Assets\Plugins\CodeStage\AntiCheatToolkit\Editor\Scripts\Windows\ACTkSettings.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/UnityHub/2018.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -349,32 +349,32 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.Advertisements">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.Purchasing">
-      <HintPath>D:/Unity Project/Arrow_CM/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandler">
-      <HintPath>D:/Unity Project/Arrow_CM/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.105.0">
+      <HintPath>D:/Unity Project/Arrow/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.105.0.dll</HintPath>
     </Reference>
     <Reference Include="Google.JarResolver_v1.2.105.0">
-      <HintPath>D:/Unity Project/Arrow_CM/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.105.0.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.105.0.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.105.0">
-      <HintPath>D:/Unity Project/Arrow_CM/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.105.0.dll</HintPath>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>D:/Unity Project/Arrow/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandlerImpl_v1.2.105.0">
-      <HintPath>D:/Unity Project/Arrow_CM/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.105.0.dll</HintPath>
+      <HintPath>D:/Unity Project/Arrow/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.105.0.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>D:/Unity Project/Arrow/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/UnityHub/2018.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -733,7 +733,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{19AECA36-947C-56AB-BAC8-2F1BB1B75322}</Project>
+      <Project>{5F8775CF-4D9E-2C44-3C63-9EAF569153B4}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
