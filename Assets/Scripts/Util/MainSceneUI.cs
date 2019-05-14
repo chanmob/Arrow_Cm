@@ -8,8 +8,6 @@ using CodeStage.AntiCheat.ObscuredTypes;
 public class MainSceneUI : MonoBehaviour
 {
     private bool soundOff;
-    private string leaderboardId = "74943547710";
-
     private void Awake()
     {
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
@@ -20,21 +18,6 @@ public class MainSceneUI : MonoBehaviour
 
     private void Start()
     {
-        if (!Social.localUser.authenticated)
-        {
-            Social.localUser.Authenticate((bool success) =>
-            {
-                if (success)
-                {
-                    Debug.Log("로그인 성공");
-                }
-                else
-                {
-                    Debug.LogError("로그인 실패");
-                }
-            });
-        }
-
         if (PlayerPrefs.HasKey("SOUND"))
         {
             var sound = PlayerPrefs.GetString("SOUND");
@@ -54,7 +37,7 @@ public class MainSceneUI : MonoBehaviour
 
     public void Like()
     {
-        Application.OpenURL("");
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.ChanMob.DodgeArrow");
     }
 
     public void SoundOnOff()
@@ -76,12 +59,34 @@ public class MainSceneUI : MonoBehaviour
 
     public void Ranking()
     {
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (success)
+                {
+                    ShowRankig();
+                }
+                else
+                {
+                    Debug.LogError("로그인 실패");
+                }
+            });
+        }
+        else
+        {
+            ShowRankig();
+        }
+    }
+
+    private void ShowRankig()
+    {
         float score = 0;
         float uploadScore = 0;
 
         if (ObscuredPrefs.HasKey("INFINITYSCORE"))
         {
-            score = ObscuredPrefs.GetFloat("INFINITYSCORE");            
+            score = ObscuredPrefs.GetFloat("INFINITYSCORE");
         }
 
         if (ObscuredPrefs.HasKey("UPLOADSCORE"))
@@ -89,14 +94,14 @@ public class MainSceneUI : MonoBehaviour
             uploadScore = ObscuredPrefs.GetFloat("UPLOADSCORE");
         }
 
-        if(uploadScore != score)
+        if (uploadScore != score)
         {
             ObscuredPrefs.SetFloat("UPLOADSCORE", score);
             uploadScore = score;
 
-            Social.ReportScore((long)uploadScore, GPGSIds.leaderboard, (bool success) =>
+            Social.ReportScore((long)uploadScore, GPGSIds.leaderboard, (bool leaderBoardSuccess) =>
             {
-                if (success)
+                if (leaderBoardSuccess)
                     PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
             });
         }
@@ -104,10 +109,27 @@ public class MainSceneUI : MonoBehaviour
         {
             PlayGamesPlatform.Instance.ShowLeaderboardUI(GPGSIds.leaderboard);
         }
-
     }
 
     public void Achievements()
+    {
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate((bool sucess) =>
+            {
+                if (sucess)
+                    ShowAchievements();
+                else
+                    Debug.LogError("로그인 실패");
+            });
+        }
+        else
+        {
+            ShowAchievements();
+        }
+    }
+
+    private void ShowAchievements()
     {
         Social.ShowAchievementsUI();
     }

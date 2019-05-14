@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
-public class AdmobBanner : MonoBehaviour
+public class AdmobBanner : Singleton<AdmobBanner>
 {
-    private readonly string unitID = "ca-app-pub-3940256099942544/6300978111";
+    private readonly string unitID = "ca-app-pub-9954381112163314/7880925764";
 
     private BannerView banner;
 

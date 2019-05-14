@@ -84,7 +84,7 @@ public class Arrow : MonoBehaviour
         else if(collision.CompareTag("Player"))
         {
             Debug.Log("Player에 닿음");
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Hit();
+            Player.instance.Hit();
             GameManager.instance.DisableGameobject(this.gameObject);
         }
     }

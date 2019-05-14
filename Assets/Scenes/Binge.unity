@@ -1121,6 +1121,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wasd: 2
+--- !u!1 &634090379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7752514983689134192, guid: 168fc7c628b62c641b1a1c38b09a105e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7752514983397237631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &634495382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2395,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2383953259268425910, guid: db52d81d176709f4589fa0cad03d9d9c,
+        type: 3}
+      propertyPath: mobileController
+      value: 
+      objectReference: {fileID: 634090379}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db52d81d176709f4589fa0cad03d9d9c, type: 3}
 --- !u!1 &1364947098

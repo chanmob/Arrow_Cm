@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
-public class AdmobScreenAd : MonoBehaviour
+public class AdmobScreenAd : Singleton<AdmobScreenAd>
 {
-    private readonly string unitID = "ca-app-pub-3940256099942544/1033173712";
+    private readonly string unitID = "ca-app-pub-9954381112163314/7445811499";
 
     private InterstitialAd screenAd;
-
-    private void Start()
-    {
-        InitAd();
-        Invoke("Show", 10f);
-    }
 
     private void InitAd()
     {
@@ -26,6 +20,7 @@ public class AdmobScreenAd : MonoBehaviour
 
     public void Show()
     {
+        InitAd();
         StartCoroutine(ShowScreenAd());
     }
 

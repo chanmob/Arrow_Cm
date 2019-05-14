@@ -75,6 +75,7 @@ public class GameManager : Singleton<GameManager>
 
     public void GetResult()
     {
+        AdmobScreenAd.instance.Show();
         StopAllCoroutines();
         resultPanel.SetActive(true);
 
@@ -82,7 +83,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (ObscuredPrefs.HasKey("BINGESCORE"))
             {
-                if (timeCount >= ObscuredPrefs.GetInt("BINGESCORE"))
+                if (idx >= ObscuredPrefs.GetInt("BINGESCORE"))
                 {
                     ObscuredPrefs.SetInt("BINGESCORE", idx);
                 }
@@ -90,6 +91,38 @@ public class GameManager : Singleton<GameManager>
             else
             {
                 ObscuredPrefs.SetInt("BINGESCORE", idx);
+            }
+
+            if(idx == 100)
+            {
+                if (!Social.localUser.authenticated)
+                {
+                    Social.localUser.Authenticate((bool success) =>
+                    {
+                        if (success)
+                        {
+                            if (Player.instance.hp == 5)
+                            {
+                                Social.ReportProgress(GPGSIds.achievement_2, 100f, null);
+                            }
+                            else
+                            {
+                                Social.ReportProgress(GPGSIds.achievement, 100f, null);
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    if (Player.instance.hp == 5)
+                    {
+                        Social.ReportProgress(GPGSIds.achievement_2, 100f, null);
+                    }
+                    else
+                    {
+                        Social.ReportProgress(GPGSIds.achievement, 100f, null);
+                    }
+                }
             }
 
             resultPanel.transform.Find("Result").GetComponent<Text>().text = "진행 상황 : " + idx + " / 100";
@@ -109,8 +142,49 @@ public class GameManager : Singleton<GameManager>
                 PlayerPrefs.SetFloat("INFINITYSCORE", timeCount);
             }
 
+            if (!Social.localUser.authenticated)
+            {
+                Social.localUser.Authenticate((bool success) =>
+                {
+                    if (success)
+                    {
+                        if (timeCount >= 300)
+                        {
+                            Social.ReportProgress(GPGSIds.achievement___300, 100f, null);
+                        }
+
+                        if (timeCount >= 200)
+                        {
+                            Social.ReportProgress(GPGSIds.achievement___200, 100f, null);
+                        }
+
+                        if (timeCount >= 100)
+                        {
+                            Social.ReportProgress(GPGSIds.achievement___100, 100f, null);
+                        }
+                    }
+                });
+            }
+            else
+            {
+                if (timeCount >= 300)
+                {
+                    Social.ReportProgress(GPGSIds.achievement___300, 100f, null);
+                }
+
+                if (timeCount >= 200)
+                {
+                    Social.ReportProgress(GPGSIds.achievement___200, 100f, null);
+                }
+
+                if (timeCount >= 100)
+                {
+                    Social.ReportProgress(GPGSIds.achievement___100, 100f, null);
+                }
+            }
+
             resultPanel.transform.Find("Result").GetComponent<Text>().text = "버틴 시간 : " + timeCount.ToString("0.00") + "초";
-            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetFloat("INFINITYSCORE") + "초";
+            resultPanel.transform.Find("BestResult").GetComponent<Text>().text = "최고 기록 : " + PlayerPrefs.GetFloat("INFINITYSCORE").ToString("0.00") + "초";
         }
     }
 
@@ -219,7 +293,7 @@ public class GameManager : Singleton<GameManager>
                     idx = Random.Range(0, patternList.Count);
                     break;
                 case TYPE.BINGE:
-                    if(idx == 99)
+                    if(idx == 100)
                     {
                         GetResult();
                         yield break;

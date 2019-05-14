@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
-    private int hp = 5;
+    public int hp = 5;
 
     public float speed = 1000f;
     public float jump_power = 8.5f;
